@@ -42,6 +42,6 @@ This maps <leader>r to the buildSystem. You can change this to whatever hot key 
 
 ## Requirements:
 Each language has its own requirements to use it with this script but these can easily be changed in the source code.
-The only notable requirements are:
-To compile C,C++: Make
-To compile latex: latexmk
+The only notable requirements are:<br>
+To compile C,C++: Make<br>
+To compile latex: latexmk<br>

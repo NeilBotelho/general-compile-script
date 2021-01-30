@@ -150,16 +150,25 @@ latexFile(){
 
 shellScript(){
 	ext=$(echo "$1"|rev|cut -d. -f1|rev)
-	line=$(head -1 $1|grep "#!")
-	if [ "$ext" = "sh" ] || [ -n "$line" ] ;then
-		if [ -x $1 ];then
-		     $isPath$1
-		else
-		     chmod +x $1 && $1 $2
-	   fi
-   else
-	   echo "Filetype not supported"
-	fi
+	line=$(head -1 $1)
+	isShell=""
+	case $line in
+		"\#\!/bin/sh")isShell="true";;
+		"\#\!/bin/zsh")isShell="true";;
+		"\#\!/bin/bash")iisShell="true";;
+		"\#\!/bin/fish")isShell="true";;
+	esac
+
+	if [ -z "$isShell" ];then
+		echo "Filetype not supported"
+		exit
+	fi	
+
+	if [ -x $1 ];then
+		 $isPath$1
+	else
+		 chmod +x $1 && $1 $2
+    fi
 }
 
 # Main Build Logic

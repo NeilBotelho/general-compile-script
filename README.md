@@ -10,7 +10,6 @@ Yes, I am aware that these just save me a couple of keystrokes but I was bored o
 
 ## Using the ```c``` compilation script:
 For just the compilation script, add the ```c``` file from this repo, somewhere on your PATH. Then you can run ```c filename``` to compile any script in a supported language.
-Convenience scripts for compiling(and cleaning) multiple different languages
 
 ## Using ```buildSystem```:
 On it's own ```buildSystem``` isn't very useful. Essentially, it runs ```c``` and  requests user input(i.e. press enter) before exiting. But this behaviour allows it to run your code in a pop up terminal for quick testing. This is especially useful in text editors like vim and sublime where there isn't a very convenient way to run programs. To use ```buildSystem``` download it and add it somewhere on your PATH

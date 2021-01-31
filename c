@@ -143,7 +143,8 @@ latexFile(){
 		cd $parent
 		latexmk -pdf $filename
 		echo "$i"
-		lc
+		# Clears temp files created by latexmk for creating pdfs from tex
+		rm *.log *.fls *.synctex.gz *.fdb_latexmk *.aux *.dvi *.synctex\(busy\) 2> /dev/null
 		cd $curr
 	done
 }

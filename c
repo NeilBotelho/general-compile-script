@@ -175,7 +175,7 @@ shellScript(){
 # Main Build Logic
 if [ -z "$1" ]; then
     # display usage if no parameters given
-    echo "Usage:   c <path/file_name of type c|c++|java|go|tex>|any executable"
+    echo "Usage:   c <path/file_name of type c|c++|java|rust|python|go|tex>|any executable"
     echo "Example: c <path/file_name_1.c>"
     exit
 else

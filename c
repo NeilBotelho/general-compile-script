@@ -41,7 +41,7 @@ cppFile(){
 #Quickly compile and run C++ code
    cFile=$(echo "$1"|rev |cut -d"/" -f1|rev|cut -d. -f1)
    # cFile=$(echo "$cFile"|cut -d. -f1)
-   error=$(make -s "$cFile")
+   make -s "$cFile"
    #If no error run executable
    if [ $? -eq 0 ]
    then
@@ -141,41 +141,31 @@ latexFile(){
 		parent=$(echo "$i"|rev|cut --complement -d/ -f1|rev)"/"
 		filename=$(echo "$i"|rev|cut -d/ -f1|rev)
 		cd $parent
-		latexmk -pdf $filename
+		latexmk -pdf $filename 
 		echo "$i"
-		# Clears temp files created by latexmk for creating pdfs from tex
-		rm *.log *.fls *.synctex.gz *.fdb_latexmk *.aux *.dvi *.synctex\(busy\) 2> /dev/null
+		lc
 		cd $curr
 	done
 }
 
 shellScript(){
 	ext=$(echo "$1"|rev|cut -d. -f1|rev)
-	line=$(head -1 $1)
-	isShell=""
-	case $line in
-		"\#\!/bin/sh")isShell="true";;
-		"\#\!/bin/zsh")isShell="true";;
-		"\#\!/bin/bash")iisShell="true";;
-		"\#\!/bin/fish")isShell="true";;
-	esac
-
-	if [ -z "$isShell" ];then
-		echo "Filetype not supported"
-		exit
-	fi	
-
-	if [ -x $1 ];then
-		 $isPath$1
-	else
-		 chmod +x $1 && $1 $2
-    fi
+	line=$(head -1 $1|grep "#!")
+	if [ "$ext" = "sh" ] || [ -n "$line" ] ;then
+		if [ -x $1 ];then
+		     $isPath$1
+		else
+		     chmod +x $1 && $isPath$1 $2
+	   fi
+   else
+	   echo "Filetype not supported"
+	fi
 }
 
 # Main Build Logic
 if [ -z "$1" ]; then
     # display usage if no parameters given
-    echo "Usage:   c <path/file_name of type c|c++|java|rust|python|go|tex>|any executable"
+    echo "Usage:   c <path/file_name of type c|c++|java|go|python|rust|lua|tex|any executable>"
     echo "Example: c <path/file_name_1.c>"
     exit
 else
@@ -207,6 +197,7 @@ else
 	    *.go)   goFile $isPath"$1" "$Args" ;;
 	    *.rs)   rustFile $isPath"$1" "$Args";;
 	    *.py)   python $isPath"$1" "$Args";;
+	    *.lua)  lua $isPath"$1" "$Args";;
 		*.tex)  for file in $@;do
 					latexFile $isPath$file
 	 	        done;;

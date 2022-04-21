@@ -198,6 +198,7 @@ else
 	    *.rs)   rustFile $isPath"$1" "$Args";;
 	    *.py)   python $isPath"$1" "$Args";;
 	    *.lua)  lua $isPath"$1" "$Args";;
+	    *.js) node $isPath"$1" "$Args";;
 		*.tex)  for file in $@;do
 					latexFile $isPath$file
 	 	        done;;
